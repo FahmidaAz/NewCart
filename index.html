@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart-Fahmida</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="phone-decrease" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phone-quantity" type="text" class="form-control text-center" value="1">
+                           <button id="phone-increase" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="total-price-phone">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="case-decrease"class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="case-quantity"type="text" class="form-control text-center" value="1">
+                           <button id="case-increase" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$<span id="total-price-case">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="total-price">1,278</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="grand-total">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button id="check-out" type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</body>
+<script>
+    var unitPrice;
+    var isIncrease;
+    //increase phone
+    document.getElementById('phone-increase').addEventListener('click', function(){
+        unitPrice = 1219;
+        isIncrease = true;
+    handleButton('phone-quantity', 'total-price-phone',unitPrice,isIncrease);
+    calculation();
+    });
+    //increase case
+    document.getElementById('case-increase').addEventListener('click', function(){
+      unitPrice = 59;
+      isIncrease = true;
+    handleButton('case-quantity','total-price-case',unitPrice,isIncrease);
+    calculation();
+    });
+    //decrease phone
+    document.getElementById('phone-decrease').addEventListener('click',function(){
+       unitPrice = 1219;
+       isIncrease = false;
+    handleButton( 'phone-quantity','total-price-phone',unitPrice,isIncrease);
+    calculation();
+    });
+   //decrease case
+    
+    document.getElementById('case-decrease').addEventListener('click',function(){
+      unitPrice = 59;
+      isIncrease =false;
+      handleButton('case-quantity','total-price-case',unitPrice,isIncrease);
+      calculation();
+    });
+
+//increase and decrease function
+    function handleButton(quantity, price,unit, isIncrease){
+     
+        var value =  document.getElementById(quantity).value;
+        var numberValue = parseFloat(value);
+        if(isIncrease == true){
+        var increaseGadget = numberValue+1;
+        }
+        if(isIncrease == false && numberValue>0){
+         var increaseGadget = numberValue-1;
+        }
+        document.getElementById(quantity).value = increaseGadget;
+        var textPrice = document.getElementById(price).innerText;
+        var gadgetPrice = parseInt(textPrice);
+        var totalValue = increaseGadget * unit;
+
+        document.getElementById(price).innerText = totalValue;
+            
+    }
+   //   document.getElementById('check-out').addEventListener('click',function(){
+       
+   //   })
+
+    //total calculation
+
+    function calculation(){
+       var phoneTotal = document.getElementById('total-price-phone').innerText;
+       var phoneCount = parseInt(phoneTotal);
+
+       var caseTotal = document.getElementById('total-price-case').innerText;
+       var caseCount = parseInt(caseTotal);
+
+       var total = phoneCount + caseCount;
+
+       document.getElementById('total-price').innerText = total;
+
+       var tax = Math.round(total*0.1);
+       document.getElementById('tax').innerText = tax;
+
+       var grandTotal = total + tax;
+       document.getElementById('grand-total').innerText = grandTotal;
+
+    }
+
+//decrease function
+
+   //  function decreaseButton(quantity, price,unit){
+    
+   //      var value = document.getElementById(quantity).value;
+   //      var numberValue = parseFloat(value);
+        
+   //      var decreaseGadget = numberValue - 1;
+      
+   //      document.getElementById(quantity).value = decreaseGadget;
+   //     var textPrice = document.getElementById(price).innerText;
+   //     var gadgetPrice = parseInt(textPrice);
+   //     var totalValue = decreaseGadget *unit;
+
+   //     document.getElementById(price).innerText = totalValue;
+       
+   
+   //  }
+</script>
+
+</html>
